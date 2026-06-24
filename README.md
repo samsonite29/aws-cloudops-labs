@@ -1,6 +1,6 @@
 # aws-cloudops-labs
 
-Terraform implementations of the hands-on labs from the [AWS Certified CloudOps Engineer Associate (SOA-C03)](https://www.udemy.com/course/aws-certified-cloudops-associate/) course.
+Terraform implementations of the hands-on labs from the [AWS Certified CloudOps Engineer Associate (SOA-C03)]
 
 Where the course walks through a task in the AWS console, this repo does it as infrastructure-as-code instead. The goal is to treat each lab the way I'd treat real infrastructure — versioned, reproducible, and reviewable — rather than as one-off clickops. Each lab directory has its own README explaining what it provisions and, where relevant, why I'd reach for code over the console.
 
@@ -15,7 +15,7 @@ Where the course walks through a task in the AWS console, this repo does it as i
 
 ```
 .
-├── modules/
+├── modules/                # reusable building blocks shared across labs
 ├── labs/
 │   ├── 01-monitoring/
 │   ├── 02-reliability/
@@ -23,6 +23,7 @@ Where the course walks through a task in the AWS console, this repo does it as i
 │   ├── 04-security/
 │   ├── 05-networking/
 │   └── 06-cost-performance/
+├── diagrams/               # architecture diagrams, one per lab where useful
 ├── .github/workflows/      # fmt-check + validate on every push
 ├── .pre-commit-config.yaml
 └── .gitignore
@@ -66,6 +67,12 @@ Each lab uses a local backend by default to keep setup friction low. The remote 
 - `*.tfstate`, `*.tfstate.*`, and `.terraform/` are gitignored — state never lands in the repo.
 - No credentials are committed. Authentication is expected via your AWS CLI profile or environment variables.
 - Variables that would carry account-specific values are declared in `variables.tf` with no committed `.tfvars`.
+
+## Architecture diagrams
+
+Diagrams live in [`diagrams/`](./diagrams), named to match their lab (e.g. `04-security-iam-baseline.png`). Where a lab provisions something with non-obvious wiring — VPC endpoints, a CloudFront origin, IAM trust relationships — a diagram is worth more than the prose. Each lab README links to its diagram when one exists.
+
+Source files (draw.io `.drawio`, Mermaid `.mmd`, or whatever tool produced them) are kept alongside the exported image so the diagrams stay editable rather than frozen as screenshots.
 
 ## Conventions
 
